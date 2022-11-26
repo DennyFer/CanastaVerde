@@ -6,28 +6,31 @@ var logger = require('morgan');
 var database = require("./config/database")
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var auth = require("./auth/main_auth")
+var cors = require("cors");
+
 var empleadosRouter = require('./routes/empleados.router');
+var productosRouter = require('./routes/productos.router');
+var usuariosRouter = require('./routes/usuarios.router');
 
 var app = express();
-
-
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 //Mongo connection
 database.mongoConnect();
 
-//ROUTER
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//ROUTER
+app.use ('/usuarios', usuariosRouter);
+app.use(auth);
 app.use ('/empleados', empleadosRouter);
+app.use('/productos', productosRouter),
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
