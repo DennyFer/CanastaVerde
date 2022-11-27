@@ -119,7 +119,8 @@ guardarEmpleados() {
 
 
          
-            <Button variant="primary" onClick={()=> console.log(this.guardarEmpleados())}>
+            <Button variant="primary"
+             onClick={()=> console.log(this.guardarEmpleados())}>
               Guardar Empleado
             </Button>
           </Form>
