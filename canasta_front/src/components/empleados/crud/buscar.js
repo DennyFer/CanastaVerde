@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row } from "react-bootstrap";
 import "../empleados.css";
 import DataGrid from "../../grid/grid";
+
 const columns = [
   {
     dataField: "_id",
@@ -47,7 +48,8 @@ export default class EmpleadosBuscar extends React.Component {
           <h1>Canasta Verde</h1>
         </Row>
         <Row>
-          <DataGrid url="/empleados" columns={columns} />
+          <DataGrid url="/empleados" columns={columns} showEditButton={true}
+ />
         </Row>
       </Container>
     );

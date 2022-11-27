@@ -2,7 +2,8 @@ import React from "react";
 import { Container, Nav, Row } from "react-bootstrap";
 import "./empleados.css";
 import EmpleadosBuscar from "./crud/buscar";
-
+import EmpleadosCrear from "./crud/crear";
+import EmpleadosEditar from "./crud/editar";
 
 export default class Empleados extends React.Component {
   constructor(props) {
@@ -10,12 +11,18 @@ export default class Empleados extends React.Component {
     this.state = {
         currentTab: "buscar"
     };
+    this.changeTab = this.changeTab.bind(this);
   }
+  changeTab(tab){
+    this.setState({ currentTab: tab });
+}
   render() {
     return (
       <Container id="empleados-container">
         <Row>
-          <Nav fill variant="tabs" defaultActiveKey="/home">
+          <Nav fill variant="tabs" defaultActiveKey="/buscar"
+          onSelect={(eventKey) => this.setState({ currentTab: eventKey })}
+        >
             
             <Nav.Item>
               <Nav.Link eventKey="buscar">Buscar</Nav.Link>
@@ -26,7 +33,12 @@ export default class Empleados extends React.Component {
           </Nav>
         </Row>
         <Row>
-        {this.state.currentTab === "buscar" ? <EmpleadosBuscar/> : null}
+        {this.state.currentTab === "buscar" ?(
+        <EmpleadosBuscar changeTab={this.changeTab}/>
+        ) : this.state.currentTab === 'crear' ?
+        (
+        <EmpleadosCrear changeTab={this.changeTab}/>
+        ):(<EmpleadosEditar changeTab={this.changeTab} />)}
         </Row>
       </Container>
     );
